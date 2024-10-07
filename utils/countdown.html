@@ -1,6 +1,3 @@
-Certainly! I'll modify the code to accept a 'cnt' parameter from the URL and use it to set the countdown timer. If no parameter is provided, it will default to 5 minutes. Here's the updated code:
-
-```html
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -60,26 +57,3 @@ Certainly! I'll modify the code to accept a 'cnt' parameter from the URL and use
     </script>
 </body>
 </html>
-```
-
-Here's what I changed:
-
-1. I added a `getUrlParameter` function at the beginning of the script. This function extracts parameters from the URL.
-
-2. I replaced the hardcoded `cnt = 5` with:
-   ```javascript
-   var cnt = parseInt(getUrlParameter('cnt')) || 5;
-   ```
-   This line tries to get the 'cnt' parameter from the URL. If it exists and can be parsed as an integer, it uses that value. Otherwise, it defaults to 5.
-
-3. The rest of the code remains the same, using this `cnt` value to set the countdown.
-
-Now, you can use the countdown timer in two ways:
-
-1. Without any parameter (default 5 minutes):
-   `http://yourwebsite.com/countdown.html`
-
-2. With a custom countdown (e.g., 10 minutes):
-   `http://yourwebsite.com/countdown.html?cnt=10`
-
-This solution allows you to flexibly set the countdown time via the URL while maintaining the default behavior when no parameter is provided.
