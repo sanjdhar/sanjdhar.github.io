@@ -1,0 +1,85 @@
+Certainly! I'll modify the code to accept a 'cnt' parameter from the URL and use it to set the countdown timer. If no parameter is provided, it will default to 5 minutes. Here's the updated code:
+
+```html
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        p {
+            text-align: center;
+            font-size: 250px;
+            margin-top: 300px;
+        }
+    </style>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get 'cnt' from URL or use default value of 5
+        var cnt = parseInt(getUrlParameter('cnt')) || 5;
+
+        // Set the date we're counting down to
+        var countDownDate = new Date();
+        countDownDate.setMinutes(countDownDate.getMinutes() + cnt);
+        countDownDate.setSeconds(countDownDate.getSeconds() + 5); // Needed this to handle lag
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+            // Get today's date and time
+            var now = new Date().getTime();
+            
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+            
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            
+            // Output the result in an element with id="demo"
+            document.getElementById("demo").style.color = "blue";
+            document.getElementById("demo").innerHTML = hours + "h "
+                + minutes + "m " + seconds + "s ";
+
+            // If the count down is over, write some text 
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("demo").innerHTML = "Times up!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
+```
+
+Here's what I changed:
+
+1. I added a `getUrlParameter` function at the beginning of the script. This function extracts parameters from the URL.
+
+2. I replaced the hardcoded `cnt = 5` with:
+   ```javascript
+   var cnt = parseInt(getUrlParameter('cnt')) || 5;
+   ```
+   This line tries to get the 'cnt' parameter from the URL. If it exists and can be parsed as an integer, it uses that value. Otherwise, it defaults to 5.
+
+3. The rest of the code remains the same, using this `cnt` value to set the countdown.
+
+Now, you can use the countdown timer in two ways:
+
+1. Without any parameter (default 5 minutes):
+   `http://yourwebsite.com/countdown.html`
+
+2. With a custom countdown (e.g., 10 minutes):
+   `http://yourwebsite.com/countdown.html?cnt=10`
+
+This solution allows you to flexibly set the countdown time via the URL while maintaining the default behavior when no parameter is provided.
