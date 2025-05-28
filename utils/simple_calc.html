@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .calculator {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 1.1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1.1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .history {
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
+    }
+
+    .history-entry {
+      margin-bottom: 0.5rem;
+      font-family: monospace;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Simple Calculator</h1>
+
+  <div class="calculator">
+    <input type="text" id="calc-input" placeholder="Enter expression, e.g. 2 + 2 * 3" />
+    <button id="calc-button">Calculate</button>
+  </div>
+
+  <div class="history" id="history"></div>
+
+  <script>
+    const input = document.getElementById('calc-input');
+    const button = document.getElementById('calc-button');
+    const historyDiv = document.getElementById('history');
+
+    function evaluateExpression() {
+      const expression = input.value.trim();
+      if (expression === '') return;
+
+      let result;
+      try {
+        // Evaluate safely
+        result = Function('"use strict"; return (' + expression + ')')();
+      } catch (e) {
+        result = 'Error: Invalid Expression';
+      }
+
+      const entry = document.createElement('div');
+      entry.className = 'history-entry';
+      entry.textContent = `${expression} = ${result}`;
+      historyDiv.prepend(entry); // show latest at top
+
+      input.value = '';
+      input.focus();
+    }
+
+    button.addEventListener('click', evaluateExpression);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        evaluateExpression();
+      }
+    });
+  </script>
+</body>
+</html>

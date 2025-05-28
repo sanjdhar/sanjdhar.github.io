@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 300;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        .calculator-section {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        #expressionInput {
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 1.1em;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        #expressionInput:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        #calculateBtn {
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+        }
+
+        #calculateBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        #calculateBtn:active {
+            transform: translateY(0);
+        }
+
+        .current-result {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #e1e5e9;
+            margin-top: 15px;
+        }
+
+        .current-result h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .result-display {
+            font-size: 1.8em;
+            font-weight: 600;
+            color: #667eea;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .history-section {
+            padding: 30px;
+            background: white;
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .history-title {
+            color: #2c3e50;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .clear-history {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background 0.3s ease;
+        }
+
+        .clear-history:hover {
+            background: #c0392b;
+        }
+
+        .history-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .history-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .history-expression {
+            font-family: 'Courier New', monospace;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .history-result {
+            font-family: 'Courier New', monospace;
+            color: #667eea;
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .error {
+            color: #e74c3c !important;
+            font-weight: 600;
+        }
+
+        .empty-history {
+            text-align: center;
+            color: #7f8c8d;
+            font-style: italic;
+            padding: 40px;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            .input-group {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Simple Calculator</h1>
+            <p>Enter mathematical expressions and see your calculation history</p>
+        </div>
+
+        <div class="calculator-section">
+            <div class="instructions">
+                <strong>How to use:</strong> Enter any mathematical expression (e.g., 2+3*4, (5-2)/3, sqrt(16), sin(45)) and press Enter or click Calculate.
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="expressionInput" placeholder="Enter your calculation (e.g., 2 + 3 * 4)" autofocus>
+                <button id="calculateBtn">Calculate</button>
+            </div>
+
+            <div class="current-result" id="currentResult" style="display: none;">
+                <h3>Result:</h3>
+                <div class="result-display" id="resultDisplay"></div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <div class="history-header">
+                <h2 class="history-title">Calculation History</h2>
+                <button class="clear-history" id="clearHistoryBtn" style="display: none;">Clear History</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <div class="empty-history">No calculations yet. Start by entering an expression above!</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let calculationHistory = [];
+
+        // Get DOM elements
+        const expressionInput = document.getElementById('expressionInput');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const currentResult = document.getElementById('currentResult');
+        const resultDisplay = document.getElementById('resultDisplay');
+        const historyList = document.getElementById('historyList');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
+
+        // Safe evaluation function
+        function safeEval(expression) {
+            try {
+                // Replace common mathematical functions
+                let processedExpression = expression
+                    .replace(/\bsin\(/g, 'Math.sin(')
+                    .replace(/\bcos\(/g, 'Math.cos(')
+                    .replace(/\btan\(/g, 'Math.tan(')
+                    .replace(/\bsqrt\(/g, 'Math.sqrt(')
+                    .replace(/\babs\(/g, 'Math.abs(')
+                    .replace(/\bpow\(/g, 'Math.pow(')
+                    .replace(/\blog\(/g, 'Math.log(')
+                    .replace(/\bpi\b/g, 'Math.PI')
+                    .replace(/\be\b/g, 'Math.E');
+
+                // Basic security check - only allow mathematical characters
+                if (!/^[0-9+\-*/.() \t\nMath,sincogtabsqrpowlogPIE]+$/.test(processedExpression)) {
+                    throw new Error('Invalid characters in expression');
+                }
+
+                const result = Function(`"use strict"; return (${processedExpression})`)();
+                
+                if (typeof result !== 'number' || !isFinite(result)) {
+                    throw new Error('Result is not a valid number');
+                }
+                
+                return result;
+            } catch (error) {
+                throw new Error('Invalid expression');
+            }
+        }
+
+        // Perform calculation
+        function calculate() {
+            const expression = expressionInput.value.trim();
+            
+            if (!expression) {
+                alert('Please enter a mathematical expression');
+                return;
+            }
+
+            try {
+                const result = safeEval(expression);
+                const roundedResult = Math.round(result * 100) / 100;
+                
+                // Add to history
+                calculationHistory.unshift({
+                    expression: expression,
+                    result: roundedResult,
+                    timestamp: new Date(),
+                    isError: false
+                });
+
+                // Display current result
+                resultDisplay.textContent = roundedResult;
+                resultDisplay.className = 'result-display';
+                currentResult.style.display = 'block';
+
+                // Clear input for next calculation
+                expressionInput.value = '';
+                
+            } catch (error) {
+                // Add error to history
+                calculationHistory.unshift({
+                    expression: expression,
+                    result: 'Error: ' + error.message,
+                    timestamp: new Date(),
+                    isError: true
+                });
+
+                // Display error
+                resultDisplay.textContent = 'Error: ' + error.message;
+                resultDisplay.className = 'result-display error';
+                currentResult.style.display = 'block';
+            }
+
+            updateHistoryDisplay();
+            expressionInput.focus();
+        }
+
+        // Update history display
+        function updateHistoryDisplay() {
+            if (calculationHistory.length === 0) {
+                historyList.innerHTML = '<div class="empty-history">No calculations yet. Start by entering an expression above!</div>';
+                clearHistoryBtn.style.display = 'none';
+                return;
+            }
+
+            clearHistoryBtn.style.display = 'block';
+            
+            historyList.innerHTML = calculationHistory.map(item => `
+                <div class="history-item">
+                    <div class="history-expression">${item.expression}</div>
+                    <div class="history-result ${item.isError ? 'error' : ''}">${item.result}</div>
+                </div>
+            `).join('');
+        }
+
+        // Clear history
+        function clearHistory() {
+            if (confirm('Are you sure you want to clear all calculation history?')) {
+                calculationHistory = [];
+                updateHistoryDisplay();
+                currentResult.style.display = 'none';
+            }
+        }
+
+        // Event listeners
+        calculateBtn.addEventListener('click', calculate);
+        clearHistoryBtn.addEventListener('click', clearHistory);
+
+        expressionInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                calculate();
+            }
+        });
+
+        // Focus on input when page loads
+        window.addEventListener('load', function() {
+            expressionInput.focus();
+        });
+    </script>
+</body>
+</html>
