@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Commands Cheat Sheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 2rem;
+        }
+        
+        .section {
+            margin-bottom: 2.5rem;
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section h2 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .command-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .command-group h3 {
+            color: #34495e;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+        
+        .command {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 0.8rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .command:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateX(5px);
+        }
+        
+        .command code {
+            color: #c7254e;
+            background: transparent;
+        }
+        
+        .description {
+            color: #666;
+            font-style: italic;
+            margin-top: 0.3rem;
+            font-size: 0.85rem;
+        }
+        
+        .tip {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            border: 1px solid #ffc107;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .tip h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .tip p {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            border: 1px solid #dc3545;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .warning h4 {
+            color: #721c24;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning p {
+            color: #721c24;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Git Commands Cheat Sheet</h1>
+            <p>Essential Git commands for developers</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>🛠️ Initial Setup</h2>
+                <div class="command-group">
+                    <h3>Configure Git globally</h3>
+                    <div class="command">
+                        <code>git config --global user.name "Your Name"</code>
+                        <div class="description">Set your name for all repositories</div>
+                    </div>
+                    <div class="command">
+                        <code>git config --global user.email "your.email@example.com"</code>
+                        <div class="description">Set your email for all repositories</div>
+                    </div>
+                </div>
+                
+                <div class="command-group">
+                    <h3>SSH Key Setup</h3>
+                    <div class="command">
+                        <code>ssh-keygen -t rsa -b 4096 -C "your.email@example.com"</code>
+                        <div class="description">Generate SSH key pair (press Enter for default location)</div>
+                    </div>
+                    <div class="command">
+                        <code>cat ~/.ssh/id_rsa.pub</code>
+                        <div class="description">Display your public key to copy to GitHub</div>
+                    </div>
+                    <div class="command">
+                        <code>ssh -T git@github.com</code>
+                        <div class="description">Test SSH connection to GitHub</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🆕 New Repository Setup</h2>
+                <div class="command-group">
+                    <h3>Initialize new local repository</h3>
+                    <div class="command">
+                        <code>git init</code>
+                        <div class="description">Initialize a new Git repository</div>
+                    </div>
+                    <div class="command">
+                        <code>echo "# Your Project Name" >> README.md</code>
+                        <div class="description">Create a README file</div>
+                    </div>
+                    <div class="command">
+                        <code>git add README.md</code>
+                        <div class="description">Stage the README file</div>
+                    </div>
+                    <div class="command">
+                        <code>git commit -m "Initial commit"</code>
+                        <div class="description">Make your first commit</div>
+                    </div>
+                    <div class="command">
+                        <code>git branch -M main</code>
+                        <div class="description">Rename master branch to main</div>
+                    </div>
+                    <div class="command">
+                        <code>git remote add origin git@github.com:username/repository.git</code>
+                        <div class="description">Link to remote repository (SSH)</div>
+                    </div>
+                    <div class="command">
+                        <code>git push -u origin main</code>
+                        <div class="description">Push to remote and set upstream</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📤 Push Existing Repository</h2>
+                <div class="command">
+                    <code>git remote add origin git@github.com:username/repository.git</code>
+                    <div class="description">Add remote repository</div>
+                </div>
+                <div class="command">
+                    <code>git branch -M main</code>
+                    <div class="description">Rename current branch to main</div>
+                </div>
+                <div class="command">
+                    <code>git push -u origin main</code>
+                    <div class="description">Push and set upstream tracking</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🌿 Branch Management</h2>
+                <div class="command-group">
+                    <h3>Creating and switching branches</h3>
+                    <div class="command">
+                        <code>git checkout -b feature-branch</code>
+                        <div class="description">Create and switch to new branch</div>
+                    </div>
+                    <div class="command">
+                        <code>git checkout main</code>
+                        <div class="description">Switch to main branch</div>
+                    </div>
+                    <div class="command">
+                        <code>git push -u origin feature-branch</code>
+                        <div class="description">Push new branch to remote</div>
+                    </div>
+                </div>
+                
+                <div class="command-group">
+                    <h3>Branch information</h3>
+                    <div class="command">
+                        <code>git branch</code>
+                        <div class="description">List local branches</div>
+                    </div>
+                    <div class="command">
+                        <code>git branch -r</code>
+                        <div class="description">List remote branches</div>
+                    </div>
+                    <div class="command">
+                        <code>git branch -a</code>
+                        <div class="description">List all branches (local and remote)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📥 Syncing Changes</h2>
+                <div class="command-group">
+                    <h3>After Pull Request is merged</h3>
+                    <div class="command">
+                        <code>git checkout main</code>
+                        <div class="description">Switch to main branch</div>
+                    </div>
+                    <div class="command">
+                        <code>git pull origin main</code>
+                        <div class="description">Pull latest changes from remote</div>
+                    </div>
+                    <div class="command">
+                        <code>git branch -d feature-branch</code>
+                        <div class="description">Delete local feature branch (safe delete)</div>
+                    </div>
+                    <div class="command">
+                        <code>git push origin --delete feature-branch</code>
+                        <div class="description">Delete remote feature branch</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📊 Common Commands</h2>
+                <div class="command-group">
+                    <h3>Status and information</h3>
+                    <div class="command">
+                        <code>git status</code>
+                        <div class="description">Check repository status</div>
+                    </div>
+                    <div class="command">
+                        <code>git log --oneline</code>
+                        <div class="description">View commit history (compact)</div>
+                    </div>
+                    <div class="command">
+                        <code>git diff</code>
+                        <div class="description">Show unstaged changes</div>
+                    </div>
+                </div>
+                
+                <div class="command-group">
+                    <h3>Staging and committing</h3>
+                    <div class="command">
+                        <code>git add .</code>
+                        <div class="description">Stage all changes</div>
+                    </div>
+                    <div class="command">
+                        <code>git add filename.txt</code>
+                        <div class="description">Stage specific file</div>
+                    </div>
+                    <div class="command">
+                        <code>git commit -m "Descriptive commit message"</code>
+                        <div class="description">Commit staged changes</div>
+                    </div>
+                    <div class="command">
+                        <code>git commit -am "Message"</code>
+                        <div class="description">Stage and commit all tracked files</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔄 Undoing Changes</h2>
+                <div class="command">
+                    <code>git reset HEAD~1</code>
+                    <div class="description">Undo last commit (keep changes)</div>
+                </div>
+                <div class="command">
+                    <code>git reset --hard HEAD~1</code>
+                    <div class="description">Undo last commit (discard changes)</div>
+                </div>
+                <div class="command">
+                    <code>git checkout -- filename.txt</code>
+                    <div class="description">Discard changes in specific file</div>
+                </div>
+                <div class="command">
+                    <code>git stash</code>
+                    <div class="description">Temporarily save changes</div>
+                </div>
+                <div class="command">
+                    <code>git stash pop</code>
+                    <div class="description">Restore stashed changes</div>
+                </div>
+            </div>
+
+            <div class="tip">
+                <h4>💡 Pro Tips</h4>
+                <p><strong>Use meaningful commit messages:</strong> Instead of "fix bug", use "Fix login validation error for empty email field"</p>
+                <p><strong>Commit often:</strong> Make small, logical commits rather than large ones</p>
+                <p><strong>Pull before push:</strong> Always pull the latest changes before pushing your work</p>
+                <p><strong>Use .gitignore:</strong> Add files you don't want to track (node_modules, .env, etc.)</p>
+            </div>
+
+            <div class="warning">
+                <h4>⚠️ Important Notes</h4>
+                <p><strong>Never force push to shared branches:</strong> Use <code>git push --force</code> only on your own feature branches</p>
+                <p><strong>Double-check before reset --hard:</strong> This permanently deletes your changes</p>
+                <p><strong>Keep your main branch clean:</strong> Always work on feature branches and use pull requests</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>🎯 Happy coding! Remember: Git is your friend, not your enemy.</p>
+        </div>
+    </div>
+</body>
+</html>
