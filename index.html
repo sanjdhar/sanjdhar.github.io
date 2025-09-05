@@ -1,59 +1,97 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+      crossorigin="anonymous"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+      integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Sanjay Dhar</title>
   </head>
 
   <body itemscope="itemscope" itemtype="http://schema.org/Person">
+    <!-- Schema.org additional meta tags -->
+    <meta itemprop="url" content="https://sanjdhar.github.io/" />
 
-<!-- Schema.org additional meta tags -->
-<meta itemprop="url" content="https://sanjdhar.github.io/">
+    <!-- Schema.org additional meta tags -->
+    <div class="profile-wrapper container">
+      <div class="row">
+        <div class="col-md-6 left">
+          <img
+            class="user-photo"
+            itemprop="image"
+            src="images/sd1.PNG"
+            style="width: 100%"
+            alt="Sanjay Dhar"
+          />
+        </div>
+        <div class="col-md-6 right text-center">
+          <h1 itemprop="name">Sanjay Dhar</h1>
+          <!-- Name -->
+          <h2>Technology Leader</h2>
+          <!-- Job -->
 
+          <hr />
+          <div class="links" style="background-color: white">
+            <a
+              class="btn btn-primary"
+              style="background-color: #55acee"
+              href="https://x.com/sanjaydhar4u"
+              role="button"
+            >
+              <i class="fab fa-twitter"></i>
+            </a>
 
-<!-- Schema.org additional meta tags -->
-<div class="profile-wrapper container">
-	<div class="row">
-		<div class="col-md-6 left">
-			<img class="user-photo" itemprop="image" src="images/sd1.PNG" style="width: 100%;" alt="Sanjay Dhar">
-		</div>
-		<div class="col-md-6 right text-center">
-			<h1 itemprop="name">Sanjay Dhar</h1><!-- Name -->
-			<h2>Technology Leader</h2><!-- Job -->
-		
-			<hr>
-			<div class="links" style="background-color:white">
-				<a class="btn btn-primary" style="background-color: #55acee;" href="https://x.com/sanjaydhar4u" role="button" >
-					<i class="fab fa-twitter"></i>
-				</a>
+            <a
+              class="btn btn-primary"
+              style="background-color: #0082ca"
+              href="https://www.linkedin.com/in/sdhar16/"
+              role="button"
+            >
+              <i class="fab fa-linkedin-in"></i>
+            </a>
 
-				<a class="btn btn-primary" style="background-color: #0082ca;" href="https://www.linkedin.com/in/sdhar16/" role="button">
-					<i class="fab fa-linkedin-in"></i>
-				</a>
-
-				<a class="btn btn-primary" style="background-color: #333333;" href="https://github.com/sanjdhar" role="button">
-					<i class="fab fa-github"></i>
-				</a>
-			<!--	
+            <a
+              class="btn btn-primary"
+              style="background-color: #333333"
+              href="https://github.com/sanjdhar"
+              role="button"
+            >
+              <i class="fab fa-github"></i>
+            </a>
+            <!--	
 			<a href="https://www.linkedin.com/in/sdhar16/"><i class="fab fa-linkedin-in"></i></a>
 			<a href="https://twitter.com/sanjaydhar4u"><i class="fab fa-fw fa-twitter fa-2x"></i></a>
 			<a href="https://github.com/sanjdhar"><i class="fab fa-fw fa-github-alt fa-2x"></i></a>
 			-->
-		
-			</div>
-			<hr>
-			
-	</div>
-
-	</div>
+          </div>
+          <hr />
+        </div>
+      </div>
     </div>
-    <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
-    <script>$(window).load(function(){var contact = document.getElementById("contact-phone");contact.textContent = atob(contact.dataset.secret);contact.href = atob("dGVsOg==") + atob(contact.dataset.secret);});</script>
-    <style>@import url('https://fonts.googleapis.com/css?family=Roboto+Slab:300');</style>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script>
+      $(window).load(function () {
+        var contact = document.getElementById("contact-phone");
+        contact.textContent = atob(contact.dataset.secret);
+        contact.href = atob("dGVsOg==") + atob(contact.dataset.secret);
+      });
+    </script>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:300");
+    </style>
   </body>
 </html>
-
