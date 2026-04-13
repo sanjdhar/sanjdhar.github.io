@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percent Change Calculator</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 1.75rem;
+            color: #1a1a2e;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0.35rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            font-size: 1rem;
+            border: 1.5px solid #d1d5db;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 1.25rem;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4f46e5;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: #4f46e5;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #4338ca;
+        }
+
+        #result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.05rem;
+            font-weight: 600;
+            display: none;
+        }
+
+        #result.increase {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        #result.decrease {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        #result.no-change {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+
+        #result.error {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Percent Change Calculator</h1>
+
+        <label for="original">Original Value</label>
+        <input type="number" id="original" placeholder="e.g. 200">
+
+        <label for="newVal">New Value</label>
+        <input type="number" id="newVal" placeholder="e.g. 250">
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            const original = parseFloat(document.getElementById('original').value);
+            const newVal = parseFloat(document.getElementById('newVal').value);
+            const result = document.getElementById('result');
+
+            result.className = '';
+            result.style.display = 'block';
+
+            if (isNaN(original) || isNaN(newVal)) {
+                result.textContent = 'Please enter both values.';
+                result.className = 'error';
+                return;
+            }
+
+            if (original === 0) {
+                result.textContent = 'Original value cannot be zero.';
+                result.className = 'error';
+                return;
+            }
+
+            const pct = ((newVal - original) / Math.abs(original)) * 100;
+            const rounded = Math.round(pct * 100) / 100;
+
+            if (pct > 0) {
+                result.textContent = `▲ ${rounded}% increase`;
+                result.className = 'increase';
+            } else if (pct < 0) {
+                result.textContent = `▼ ${Math.abs(rounded)}% decrease`;
+                result.className = 'decrease';
+            } else {
+                result.textContent = 'No change (0%)';
+                result.className = 'no-change';
+            }
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter') calculate();
+        });
+    </script>
+</body>
+
+</html>
