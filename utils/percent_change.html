@@ -21,6 +21,15 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .wrapper {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
         }
 
         .card {
@@ -30,6 +39,7 @@
             padding: 2.5rem 2rem;
             width: 100%;
             max-width: 420px;
+            flex: 1 1 340px;
         }
 
         h1 {
@@ -79,7 +89,8 @@
             background: #4338ca;
         }
 
-        #result {
+        #result,
+        #result2 {
             margin-top: 1.5rem;
             padding: 1rem;
             border-radius: 8px;
@@ -89,22 +100,26 @@
             display: none;
         }
 
-        #result.increase {
+        #result.increase,
+        #result2.increase {
             background: #d1fae5;
             color: #065f46;
         }
 
-        #result.decrease {
+        #result.decrease,
+        #result2.decrease {
             background: #fee2e2;
             color: #991b1b;
         }
 
-        #result.no-change {
+        #result.no-change,
+        #result2.no-change {
             background: #e0e7ff;
             color: #3730a3;
         }
 
-        #result.error {
+        #result.error,
+        #result2.error {
             background: #fef3c7;
             color: #92400e;
         }
@@ -112,18 +127,34 @@
 </head>
 
 <body>
-    <div class="card">
-        <h1>Percent Change Calculator</h1>
+    <div class="wrapper">
+        <div class="card">
+            <h1>Percent Change Calculator</h1>
 
-        <label for="original">Original Value</label>
-        <input type="number" id="original" placeholder="e.g. 200">
+            <label for="original">Original Value</label>
+            <input type="number" id="original" placeholder="e.g. 200">
 
-        <label for="newVal">New Value</label>
-        <input type="number" id="newVal" placeholder="e.g. 250">
+            <label for="newVal">New Value</label>
+            <input type="number" id="newVal" placeholder="e.g. 250">
 
-        <button onclick="calculate()">Calculate</button>
+            <button onclick="calculate()">Calculate</button>
 
-        <div id="result"></div>
+            <div id="result"></div>
+        </div>
+
+        <div class="card" id="card2">
+            <h1>% Increase / Decrease Calculator</h1>
+
+            <label for="baseVal">Original Value</label>
+            <input type="number" id="baseVal" placeholder="e.g. 200">
+
+            <label for="pctChange">% Increase / Decrease</label>
+            <input type="number" id="pctChange" placeholder="e.g. 25 or -10">
+
+            <button onclick="calculateApplied()">Calculate</button>
+
+            <div id="result2"></div>
+        </div>
     </div>
 
     <script>
@@ -162,8 +193,44 @@
             }
         }
 
+        function calculateApplied() {
+            const base = parseFloat(document.getElementById('baseVal').value);
+            const pct = parseFloat(document.getElementById('pctChange').value);
+            const result = document.getElementById('result2');
+
+            result.className = '';
+            result.style.display = 'block';
+
+            if (isNaN(base) || isNaN(pct)) {
+                result.textContent = 'Please enter both values.';
+                result.className = 'error';
+                return;
+            }
+
+            const newVal = base * (1 + pct / 100);
+            const rounded = Math.round(newVal * 100) / 100;
+
+            if (pct > 0) {
+                result.textContent = `▲ New value: ${rounded} (+${pct}%)`;
+                result.className = 'increase';
+            } else if (pct < 0) {
+                result.textContent = `▼ New value: ${rounded} (${pct}%)`;
+                result.className = 'decrease';
+            } else {
+                result.textContent = `New value: ${rounded} (no change)`;
+                result.className = 'no-change';
+            }
+        }
+
         document.addEventListener('keydown', e => {
-            if (e.key === 'Enter') calculate();
+            if (e.key === 'Enter') {
+                const focused = document.activeElement;
+                if (focused && focused.closest('#card2')) {
+                    calculateApplied();
+                } else {
+                    calculate();
+                }
+            }
         });
     </script>
 </body>
