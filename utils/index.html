@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.0.13/js/all.js"
+      integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe"
+      crossorigin="anonymous"
+    ></script>
+    <title>Utilities - Sanjay Dhar</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css?family=Roboto+Slab:300,400,700");
+
+      html {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        min-height: 100%;
+        font: normal 16px "Roboto Slab", sans-serif;
+        background-color: #d2d6de;
+        color: #333;
+      }
+      .page-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 60px 20px 80px;
+      }
+      header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      header h1 {
+        font-weight: 700;
+        font-size: 2em;
+        margin-bottom: 5px;
+      }
+      header p {
+        color: #666;
+        margin-top: 0;
+      }
+      header a.back {
+        display: inline-block;
+        margin-top: 10px;
+        color: #8e8e8e;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+      header a.back:hover {
+        color: #343a40;
+      }
+      .tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+        gap: 20px;
+      }
+      .tile {
+        display: block;
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 30px 20px;
+        text-align: center;
+        text-decoration: none;
+        color: #333;
+        box-shadow: 0px 0px 20px -4px rgba(75, 62, 115, 0.6);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .tile:hover {
+        transform: translateY(-4px);
+        box-shadow: 0px 0px 30px -2px rgba(75, 62, 115, 0.9);
+        color: #333;
+        text-decoration: none;
+      }
+      .tile i {
+        font-size: 2.2em;
+        color: rgba(75, 62, 115, 1);
+        margin-bottom: 15px;
+      }
+      .tile h2 {
+        font-size: 1.1em;
+        font-weight: 700;
+        margin: 0 0 8px;
+      }
+      .tile p {
+        font-size: 0.85em;
+        color: #777;
+        margin: 0;
+      }
+      @media (max-width: 767.98px) {
+        .page-wrapper {
+          padding: 30px 15px 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header>
+        <h1>Utilities</h1>
+        <p>A collection of small, handy tools.</p>
+        <a class="back" href="../index.html"><i class="fas fa-arrow-left"></i> Back to home</a>
+      </header>
+
+      <div class="tiles">
+        <a class="tile" href="countdown.html">
+          <i class="fas fa-hourglass-half"></i>
+          <h2>Countdown Timer</h2>
+          <p>A simple countdown timer, configurable via URL parameter.</p>
+        </a>
+
+        <a class="tile" href="git_branch_guide.html">
+          <i class="fab fa-git-alt"></i>
+          <h2>Git Feature Branch Guide</h2>
+          <p>Reference guide for working with git feature branches.</p>
+        </a>
+
+        <a class="tile" href="percent_change.html">
+          <i class="fas fa-percentage"></i>
+          <h2>Percent Change Calculator</h2>
+          <p>Calculate percent increase or decrease between two values.</p>
+        </a>
+
+        <a class="tile" href="simple_calc.html">
+          <i class="fas fa-calculator"></i>
+          <h2>Simple Calculator</h2>
+          <p>A lightweight basic calculator.</p>
+        </a>
+
+        <a class="tile" href="simple_calc_v2.html">
+          <i class="fas fa-calculator"></i>
+          <h2>Simple Calculator v2</h2>
+          <p>An updated version of the simple calculator.</p>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>
